@@ -1,0 +1,66 @@
+\documentclass[kindle]{notex/notex}
+%\documentclass{notex/notex}
+
+\usepackage{enumitem}
+\usepackage{chngcntr}
+
+\ifkindle
+    % margin
+    \usepackage[papersize={108mm,144mm},left=5mm,right=5mm,top=5mm,bottom=15mm]{geometry}
+    % I don't remember what exactly is this ^^
+    %\setlength{\jot}{5pt}
+    %\pagestyle{plain}
+\else
+    % margin
+    \usepackage[a4paper, top=2.5cm, bottom=3.4cm, left=1cm, right=1cm]{geometry}
+    \input{mynotex/header.tex}
+    % I don't remember what exactly is this ^^
+    %adjust spacing for correct alignment of following text
+    \titlespacing*{\chapter}{0pt}{50pt}{-10pt}
+\fi
+
+
+\tikzset{basic/.style={draw}}
+\tikzset{input/.style={basic, circle}}
+\tikzset{bias/.style={basic, rectangle}}
+\tikzset{neuron/.style={basic, circle}}
+\tikzset{>=stealth, font=\scriptsize}
+
+\tikzset{sectors/.style n args={2}{%
+     circle, draw, minimum width=3.444em,
+     append after command={%
+         \pgfextra{ %
+            \draw (\tikzlastnode.north) -- (\tikzlastnode.south);
+            \path (\tikzlastnode.center) -- node[] {#1} (\tikzlastnode.west);
+            \path (\tikzlastnode.center) -- node[] {#2} (\tikzlastnode.east);
+         }
+      }
+   }
+}
+
+\title{TITLE}
+\author{AUTHOR}
+
+\date{\today} 
+% links in the table of contents
+
+\begin{document}
+
+\ifkindle
+\begin{titlepage}
+    \centering
+    \vfill
+    % 128 without head and without footer
+    \includegraphics[height=113mm]{figures/feathered-serpent2.jpg}
+    \vfill
+    {\bfseries TITLE}
+\end{titlepage}
+\else
+\maketitle
+\fi
+
+\tableofcontents
+
+\input{chapters/example.tex}
+
+\end{document}

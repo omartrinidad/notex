@@ -1,0 +1,32 @@
+%define colors
+\definecolor{darkgray}{gray}{0.5}
+\definecolor{darkgray}{gray}{0.5}
+
+%define header image
+\newcommand*\chapterlabel{}
+\titleformat{\chapter}
+  {\gdef\chapterlabel{}
+   \normalfont\sffamily\Large\bfseries\scshape}
+  {\gdef\chapterlabel{\thechapter\ }}{0pt}
+  % begin the main image, shifted 5cm down from top
+  {\begin{tikzpicture}[remember picture,overlay]
+    % add grey filled bar, 4cm high, full page wide.
+    \node[yshift=-5cm] at (current page.north west)
+      {\begin{tikzpicture}[remember picture, overlay]
+        \draw[fill=darkgray] (0,0) rectangle
+          (\paperwidth,4cm);
+    ;
+        % add the title, shifted to be centered in bar
+    \node[anchor=east,yshift=2cm,xshift=\paperwidth,text width=1.05\textwidth]{\color{lightgray}\huge{#1}} ;
+        % add rounded rectangle on top right, contains chapter number
+    \node[draw, anchor=east,yshift=4cm,xshift=0.98\paperwidth,rectangle,
+              rounded corners=10pt,inner sep=6pt,
+              fill=lightgray]
+              {\color{darkgray}Chapter \chapterlabel};
+       \end{tikzpicture}
+      };
+   \end{tikzpicture}
+  }
+%adjust spacing for correct alignment of following text
+\titlespacing*{\chapter}{0pt}{50pt}{-10pt}
+
